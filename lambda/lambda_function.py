@@ -1,5 +1,4 @@
 import json
-import random
 
 from modules.config.config import (
     SERVICE_NAME,
@@ -9,35 +8,16 @@ from modules.config.config import (
     BODY_TEAMS_KEY,
     BODY_ERRORS_KEY,
     ERROR_TAG,
-    ERROR_NOT_ENOUGH_MSG,
     )
 from modules.config.parser import ConfigParser
 from modules.controller.controller import EventController
 from modules.aws.s3_client import S3Client
+from modules.team.team import calc_team
 from modules.tools.logger import logger
 from modules.tools.utils.utils import read_file_as_string
 from modules.version import version
 
 log = logger.get_logger()
-
-
-def calc_team(team_name, names, names_sel, n_members):
-    log.info(f"Generate team: {team_name}")
-    if len(names_sel) + n_members > len(names):
-        log.warning(f"Error: {team_name}: {ERROR_NOT_ENOUGH_MSG}!")
-        return {team_name: (ERROR_TAG, ERROR_NOT_ENOUGH_MSG)}
-    members = []
-    for _ in range(n_members):
-        name = None
-        while not name:
-            name = random.choice(names)
-            if name in names_sel:
-                name = None
-                continue
-            names_sel += [name]
-            members += [name]
-    log.info(f"{team_name} members: {members}")
-    return {team_name: members}
 
 
 def lambda_handler(event, context):
