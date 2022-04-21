@@ -1,7 +1,10 @@
+from modules.config.config import ERROR_NOT_ENOUGH_MSG
 from modules.team.team import calc_team
 
 TEAM_1_NAME = 'Team_01'
-ERROR_RES_NOT_ENOUGH_CHARACTERS = {TEAM_1_NAME: ('Error', 'Not enough Characters to generate this team')}
+
+
+ERROR_RES_NOT_ENOUGH_CHARACTERS = {TEAM_1_NAME: ('Error', ERROR_NOT_ENOUGH_MSG)}
 
 
 def test_calc_team_1_member(team_names_resource, random_choice_names_mock):
