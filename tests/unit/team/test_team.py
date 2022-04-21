@@ -38,6 +38,23 @@ def test_calc_team_not_enough_names_already_sel():
     assert result == result_expected
 
 
+def test_calc_team_side_effect_names_sel():
+    """Test side effect of names selected."""
+    names = ['Name1', 'Name2', 'Name3']
+    names_sel = []
+    calc_team(team_name=TEAM_1_NAME, names=names, names_sel=names_sel, n_members=2)
+    assert all(item in names for item in names_sel) is True
+
+
+def test_calc_team_side_effect_names_sel_once(random_choice_names_repeated_mock):
+    """Test side effect of names selected. It must select each name only once."""
+    names = ['Name1', 'Name2', 'Name3']
+    names_sel = ['Rei Ayanami']
+    result = calc_team(team_name=TEAM_1_NAME, names=names, names_sel=names_sel, n_members=2)
+    result_expected = {'Team_01': ['Son Goku', 'Monokuma']}
+    assert result == result_expected
+
+
 def test_calc_2_teams_not_enough_names():
     """Test selecting 1 name from a list of 3 names.
     Then, select 3 names from a list of 3 names, one of them already selected the fist time.
