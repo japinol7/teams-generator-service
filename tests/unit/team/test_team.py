@@ -1,10 +1,14 @@
-from modules.config.config import ERROR_NOT_ENOUGH_MSG
+from modules.config.config import (
+    ERROR_TAG,
+    ERROR_NOT_ENOUGH_MSG,
+    ERROR_MAX_TRIES_MSG,
+    )
 from modules.team.team import calc_team
 
 TEAM_1_NAME = 'Team_01'
 
 
-ERROR_RES_NOT_ENOUGH_CHARACTERS = {TEAM_1_NAME: ('Error', ERROR_NOT_ENOUGH_MSG)}
+ERROR_RES_NOT_ENOUGH_CHARACTERS = {TEAM_1_NAME: (ERROR_TAG, ERROR_NOT_ENOUGH_MSG)}
 
 
 def test_calc_team_1_member(team_names_resource, random_choice_names_mock):
@@ -32,7 +36,7 @@ def test_calc_team_not_enough_names():
 
 
 def test_calc_team_not_enough_names_already_sel():
-    """Test selecting 3 names from a list of 3 names, one of them already selected."""
+    """Tests selecting 3 names from a list of 3 names, one of them already selected."""
     result = calc_team(team_name=TEAM_1_NAME,
                        names=['Name1', 'Name2', 'Name3'],
                        names_sel=['Name2'],
@@ -42,7 +46,7 @@ def test_calc_team_not_enough_names_already_sel():
 
 
 def test_calc_team_side_effect_names_sel():
-    """Test side effect of names selected."""
+    """Tests side effect of names selected."""
     names = ['Name1', 'Name2', 'Name3']
     names_sel = []
     calc_team(team_name=TEAM_1_NAME, names=names, names_sel=names_sel, n_members=2)
@@ -50,16 +54,15 @@ def test_calc_team_side_effect_names_sel():
 
 
 def test_calc_team_side_effect_names_sel_once(random_choice_names_repeated_mock):
-    """Test side effect of names selected. It must select each name only once."""
+    """Tests side effect of names selected. It must select each name only once."""
     names = ['Name1', 'Name2', 'Name3']
-    names_sel = ['Rei Ayanami']
-    result = calc_team(team_name=TEAM_1_NAME, names=names, names_sel=names_sel, n_members=2)
-    result_expected = {'Team_01': ['Son Goku', 'Monokuma']}
+    result = calc_team(team_name=TEAM_1_NAME, names=names, names_sel=['Rei Ayanami'], n_members=2)
+    result_expected = {TEAM_1_NAME: ['Son Goku', 'Monokuma']}
     assert result == result_expected
 
 
 def test_calc_2_teams_not_enough_names():
-    """Test selecting 1 name from a list of 3 names.
+    """Tests selecting 1 name from a list of 3 names.
     Then, select 3 names from a list of 3 names, one of them already selected the fist time.
     """
     names = ['Name1', 'Name2', 'Name3']
@@ -68,4 +71,12 @@ def test_calc_2_teams_not_enough_names():
 
     result = calc_team(team_name=TEAM_1_NAME, names=names, names_sel=names_sel, n_members=3)
     result_expected = ERROR_RES_NOT_ENOUGH_CHARACTERS
+    assert result == result_expected
+
+
+def test_calc_team_max_tries_exceeded(random_choice_names_all_repeated_mock):
+    """Tests exceeding max tries when trying to choose a member team randomly."""
+    names = ['Rei Ayanami', 'Rei Ayanami']
+    result = calc_team(team_name=TEAM_1_NAME, names=names, names_sel=[], n_members=2)
+    result_expected = {TEAM_1_NAME: (ERROR_TAG, ERROR_MAX_TRIES_MSG % 'Rei Ayanami')}
     assert result == result_expected
