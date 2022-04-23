@@ -50,6 +50,9 @@ def lambda_handler(event, context):
         team = calc_team(team_name, names, names_sel, num_members)
         body_key = BODY_TEAMS_KEY if team.get(team_name)[0] != ERROR_TAG else BODY_ERRORS_KEY
         body[body_key].update(team)
+        # remove currently selected member names from the list of available names
+        names = list(set(names) - set(names_sel))
+        names_sel = []
 
     log.info(f"End service {SERVICE_NAME}")
     return {
