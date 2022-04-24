@@ -55,7 +55,7 @@ def test_calc_team_side_effect_names_sel():
 
 def test_calc_team_side_effect_names_sel_once(random_choice_names_repeated_mock):
     """Tests side effect of names selected. It must select each name only once."""
-    names = ['Name1', 'Name2', 'Name3']
+    names = ['Rei Ayanami', 'Rei Ayanami', 'Son Goku', 'Monokuma']
     result = calc_team(team_name=TEAM_1_NAME, names=names, names_sel=['Rei Ayanami'], n_members=2)
     result_expected = {TEAM_1_NAME: ['Son Goku', 'Monokuma']}
     assert result == result_expected
