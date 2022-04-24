@@ -30,7 +30,7 @@ def calc_team(team_name, names, names_sel, n_members):
             name = random.choice(names)
             if name in names_sel:
                 selection_tries += 1
-                log.info(f"Retry {selection_tries:3} when randomly selecting team member. Name already selected: {name}")
+                log.debug(f"Retry {selection_tries:3} when randomly selecting team member. Name already selected: {name}")
                 if selection_tries >= CALC_TEAM_MEMBER_MAX_TRIES:
                     log.warning(f"{ERROR_TAG}: {team_name}: {ERROR_MAX_TRIES_MSG}!")
                     return {team_name: (ERROR_TAG, ERROR_MAX_TRIES_MSG % name)}
