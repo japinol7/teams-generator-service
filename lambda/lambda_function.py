@@ -1,7 +1,6 @@
 import json
 
 from modules.config.config import (
-    SERVICE_NAME,
     BODY_TEAMS_KEY,
     BODY_ERRORS_KEY,
     ERROR_TAG,
