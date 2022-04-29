@@ -14,7 +14,7 @@ def get_level(level):
         'FATAL': logging.FATAL,
         'INFO': logging.INFO,
         'NOTSET': logging.NOTSET
-    }.get(level, logging.INFO)
+        }.get(level, logging.INFO)
 
 
 def add_console_handler(logger):
@@ -27,5 +27,4 @@ def get_logger():
     level = os.environ.get('LOG_LEVEL')
     logger = logging.getLogger(__name__)
     logger.setLevel(get_level(level))
-
     return logger
