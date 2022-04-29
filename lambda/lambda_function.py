@@ -2,12 +2,11 @@ import json
 
 from modules.config.config import (
     SERVICE_NAME,
-    N_MEMBERS_MAX,
-    N_TEAMS_MAX,
-    ERROR_MAX_MSG,
     BODY_TEAMS_KEY,
     BODY_ERRORS_KEY,
     ERROR_TAG,
+    LOG_END_SERVICE_MSG,
+    LOG_START_SERVICE_MSG,
     )
 from modules.config.parser import ConfigParser
 from modules.controller.controller import EventController
@@ -15,22 +14,19 @@ from modules.aws.s3_client import S3Client
 from modules.team.team import calc_team
 from modules.tools.logger import logger
 from modules.tools.utils.utils import read_file_as_string
-from modules.version import version
+from modules.log_validation import log_validation
 
 log = logger.get_logger()
 
 
 def lambda_handler(event, context):
-    log.info(f"Start service {SERVICE_NAME} version: {version.get_version()}")
-
+    log.info(LOG_START_SERVICE_MSG)
     controller = EventController(event)
     num_teams = controller.get_teams_to_calculate()
     num_members = controller.get_num_members_for_team()
-    if num_teams > N_TEAMS_MAX or num_members > N_MEMBERS_MAX or num_teams < 1 or num_members < 1:
-        error_msg = ERROR_MAX_MSG + f" Asked for : {controller.get_teams_to_calculate_raw()} teams " \
-                                    f"and {controller.get_num_members_for_team_raw()} members."
-        log.info(error_msg)
-        log.info(f"End service {SERVICE_NAME}")
+    if not controller.validate_input_values(num_teams, num_members):
+        error_msg = log_validation.log_wrong_input_values(controller)
+        log.info(LOG_END_SERVICE_MSG)
         return {
             'statusCode': 200,
             'body': json.dumps(error_msg),
@@ -54,7 +50,7 @@ def lambda_handler(event, context):
         names = list(set(names) - set(names_sel))
         names_sel = []
 
-    log.info(f"End service {SERVICE_NAME}")
+    log.info(LOG_END_SERVICE_MSG)
     return {
         'statusCode': 200,
         'headers': {'Content-Type': 'application/json'},
