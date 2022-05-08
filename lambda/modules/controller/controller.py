@@ -1,11 +1,11 @@
-from modules.tools.logger.logger import get_logger
+from modules.tools.logger.logger import logger
 
 from modules.config.config import (
     N_MEMBERS_MAX,
     N_TEAMS_MAX,
     )
 
-log = get_logger()
+log = logger
 
 
 class EventController:

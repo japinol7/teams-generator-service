@@ -15,7 +15,7 @@ from modules.tools.logger import logger
 from modules.tools.utils.utils import read_file_as_string
 from modules.log_validation import log_validation
 
-log = logger.get_logger()
+log = logger.logger
 
 
 def lambda_handler(event, context):

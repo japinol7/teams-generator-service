@@ -2,9 +2,9 @@ import json
 
 import boto3
 
-from modules.tools.logger.logger import get_logger
+from modules.tools.logger.logger import logger
 
-log = get_logger()
+log = logger
 
 
 class S3Client:

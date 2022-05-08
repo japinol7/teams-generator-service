@@ -1,7 +1,7 @@
 from modules.config.config import ERROR_MAX_MSG
-from modules.tools.logger.logger import get_logger
+from modules.tools.logger.logger import logger
 
-log = get_logger()
+log = logger
 
 
 def log_wrong_input_values(controller):
