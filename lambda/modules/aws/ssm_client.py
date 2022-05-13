@@ -1,8 +1,6 @@
 import boto3
 
-from modules.tools.logger.logger import logger
-
-log = logger
+from modules.tools.logger.logger import logger as log
 
 
 class SSMParamClient:

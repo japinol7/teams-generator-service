@@ -7,10 +7,7 @@ from modules.config.config import (
     ERROR_MAX_TRIES_MSG,
     )
 
-from modules.tools.logger.logger import logger
-
-
-log = logger
+from modules.tools.logger.logger import logger as log
 
 
 def calc_team(team_name, names, names_sel, n_members):
