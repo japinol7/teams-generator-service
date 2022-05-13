@@ -8,6 +8,9 @@ N_MEMBERS_MAX = 15
 BODY_TEAMS_KEY = 'teams'
 BODY_ERRORS_KEY = 'errors'
 
+INPUT_ERRORS_KEY = 'Input Errors'
+INPUT_ERROR_TAG = 'Input Error'
+
 ERROR_TAG = 'Error'
 ERROR_MAX_MSG = f"User input Error. Maximum {N_TEAMS_MAX} teams and {N_MEMBERS_MAX} members for team. " \
                 f"Values must be numbers!"
