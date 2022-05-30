@@ -15,6 +15,10 @@ from modules.tools.logger.logger import logger as log
 from modules.tools.utils.utils import read_file_as_string
 from modules.log_validation import log_validation
 
+config_parser = ConfigParser()
+res_file_names_anime = config_parser['file_names_anime_1']
+s3 = S3Client()
+
 
 def lambda_handler(event, context):
     log.info(LOG_START_SERVICE_MSG)
@@ -29,10 +33,6 @@ def lambda_handler(event, context):
             'body': json.dumps(error_msg),
         }
 
-    config_parser = ConfigParser()
-    res_file_names_anime = config_parser['file_names_anime_1']
-
-    s3 = S3Client()
     names = s3.get_contestants(res_file_names_anime)
 
     names_sel = []
