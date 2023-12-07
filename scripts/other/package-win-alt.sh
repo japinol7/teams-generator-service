@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 LAMBDA_RUNTIME=3.11
-# Depending of your system configuration, just set the lambda path manually this way
-# LAMBDA_PATH=$(pwd)
-LAMBDA_PATH="//d/dev/repos/git/teams-generator-service"
+# Depending of your system configuration, such as on Windows,
+# just set the lambda path manually this way
+LAMBDA_PATH="PATH_TO_THIS_LAMBDA_ON_WINDOWS"
 
 echo "Create package lambda.zip"
 
