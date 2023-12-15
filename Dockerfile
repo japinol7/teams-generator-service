@@ -9,6 +9,11 @@ COPY lambda_function.py /lambda
 COPY ./modules /lambda/modules
 
 COPY requirements.txt .
+
+RUN  pip3 install virtualenv
+RUN  virtualenv /lambda
+RUN  source /lambda/bin/activate
+
 RUN  pip3 install -r requirements.txt --target "/lambda"
 
 RUN zip -r /tmp/lambda.zip .
