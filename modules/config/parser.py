@@ -5,7 +5,8 @@ from modules.aws.ssm_client import SSMParamClient
 
 ConfigVars = namedtuple('config_vars', ['environ', 'ssm'])
 CONFIG_VARS = {
-    'file_names_anime_1': ConfigVars('FILE_NAMES_ANIME_1', 'file-names-anime-1'),
+    'teams_gen_file_contestants': ConfigVars('TEAMS_GEN_FILE_CONTESTANTS', 'teams-gen-file-contestants'),
+    'teams_gen_file_teams': ConfigVars('TEAMS_GEN_FILE_TEAMS', 'teams-gen-file-teams'),
     }
 
 

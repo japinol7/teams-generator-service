@@ -1,6 +1,8 @@
+import os
+
 from modules.version import version
 
-SERVICE_NAME = 'teams_generator'
+SERVICE_NAME = 'teams-generator-generate-teams'
 
 N_TEAMS_MAX = 50
 N_MEMBERS_MAX = 15
@@ -21,3 +23,6 @@ ERROR_MAX_TRIES_MSG = f"Max tries exceeded while choosing a team member: {CALC_T
 
 LOG_START_SERVICE_MSG = f"Start service {SERVICE_NAME} version: {version.get_version()}"
 LOG_END_SERVICE_MSG = f"End service {SERVICE_NAME}"
+
+IS_ADD_DEBUG_INFO_TO_RESPONSE = os.environ.get('JAP_IS_ADD_DEBUG_INFO_TO_RESPONSE', '')
+IS_ADD_DEBUG_INFO_TO_RESPONSE = True if IS_ADD_DEBUG_INFO_TO_RESPONSE.lower() == 'true' else False
