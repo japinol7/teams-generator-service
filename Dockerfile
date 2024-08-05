@@ -1,7 +1,7 @@
-FROM amazon/aws-lambda-python:3.11
+FROM amazon/aws-lambda-python:3.12
 LABEL authors="japinol"
 
-RUN yum -y install zip
+RUN dnf -y install zip
 
 WORKDIR /lambda
 
