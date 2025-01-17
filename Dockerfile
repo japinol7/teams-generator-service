@@ -1,4 +1,4 @@
-FROM amazon/aws-lambda-python:3.12
+FROM amazon/aws-lambda-python:3.13
 LABEL authors="japinol"
 
 RUN dnf -y install zip
